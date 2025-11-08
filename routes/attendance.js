@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { 
-  punchIn, 
-  punchOut, 
-  getHome, 
-  getMonthDetails, 
+const {
+  punchIn,
+  punchOut,
+  getHome,
+  getMonthDetails,
   getWeekDetails
 } = require('../controllers/attendanceController');
 
