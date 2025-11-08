@@ -1,0 +1,23 @@
+<% title = 'Sign up' %>
+<form action="/signup" method="post" class="card auth-card">
+  <h2>Create account</h2>
+  <% if (typeof errors !== 'undefined' && errors.length) { %>
+    <ul class="errors">
+      <% errors.forEach(e => { %><li><%= e %></li><% }) %>
+    </ul>
+  <% } %>
+  <label>Email
+    <input type="email" name="email" required value="<%= email || '' %>">
+  </label>
+  <label>Username
+    <input type="text" name="username" required value="<%= username || '' %>">
+  </label>
+  <label>Password
+    <input type="password" name="password" required>
+  </label>
+  <label>Confirm Password
+    <input type="password" name="confirmPassword" required>
+  </label>
+  <button type="submit" class="btn">Sign up</button>
+  <p>Already have an account? <a href="/signin">Sign in</a></p>
+</form>

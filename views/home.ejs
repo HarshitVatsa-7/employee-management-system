@@ -1,0 +1,78 @@
+<% title = "Attendance Home" %>
+
+<div class="page-header">
+  <h2>Attendance Tracker</h2>
+  <span class="welcome-text">Welcome, <%= user.username %></span>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <h4>Present Days</h4>
+    <div class="stat-value"><%= presentDays %></div>
+    <div class="stat-meta">This year</div>
+  </div>
+  <div class="stat-card">
+    <h4>Total Hours</h4>
+    <div class="stat-value"><%= totalHours.toLocaleString() %></div>
+    <div class="stat-meta">This year</div>
+  </div>
+  <div class="stat-card">
+    <h4>Attendance Rate</h4>
+    <div class="stat-value"><%= attendanceRate %>%</div>
+    <div class="stat-meta">This year</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Your Attendance Calendar</h3>
+  <div class="calendar-scroll">
+    <div id="calendar-wrapper">
+      <% calendarData.forEach(month => { %>
+        <div class="month-block">
+          <div class="month-title"><%= month.monthName %></div>
+          <div class="month-grid">
+            <% for (let i = 0; i < month.offset; i++) { %>
+              <div class="day empty"></div>
+            <% } %>
+            
+            <% month.days.forEach(day => { %>
+              <div class="day level-<%= day.level %>" title="Level <%= day.level %>"></div>
+            <% }) %>
+          </div>
+          <a href="/attendance/month/<%= month.monthIndex %>" class="show-month-btn">Show Month Details</a>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="page-header" style="margin-bottom: 0;">
+    <h3>This Week</h3>
+    <div class="punch-controls">
+      <form action="/attendance/punch-in" method="POST" style="display: inline;">
+        <button type="submit" class="btn">Punch In</button>
+      </form>
+      <form action="/attendance/punch-out" method="POST" style="display: inline;">
+        <button type="submit" class="btn secondary">Punch Out</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="week-calendar-container">
+    <div class="week-calendar">
+      <% weeklyData.forEach(day => { %>
+        <div class="week-day-block">
+          <div class="week-day-label"><%= day.dayName %></div>
+          <div class="day level-<%= day.level %>" title="<%= day.date %>"></div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  
+  <% if (recentRecords.length > 0) { %>
+    <a href="/attendance/week" style="display: block; text-align: right; margin-top: 16px; color: var(--accent); text-decoration: none;">
+      View Full Attendance History
+    </a>
+  <% } %>
+</div>

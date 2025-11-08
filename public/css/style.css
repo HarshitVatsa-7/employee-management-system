@@ -1,0 +1,147 @@
+:root{
+  --bg:#f6f8fa;
+  --card:#ffffff;
+  --accent:#2b6cb0;
+  --muted:#6b7280;
+}
+
+*{box-sizing:border-box;font-family:Inter, system-ui, Arial, sans-serif}
+body{margin:0;background:var(--bg);color:#111}
+.wrap{max-width:1024px;margin:0 auto;padding:0 16px}
+.site-header{background:#fff;border-bottom:1px solid #eee;padding:12px 0}
+.logo{display:inline-block;margin:0;font-size:20px}
+.site-header nav{float:right}
+.site-header nav a{margin-left:12px;text-decoration:none;color:var(--muted)}
+
+.container{padding:20px}
+.card{background:var(--card);padding:20px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);margin-bottom:16px}
+.auth-card{max-width:420px;margin:40px auto}
+label{display:block;margin-bottom:10px}
+input[type="text"],input[type="email"],input[type="password"]{
+  width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;margin-top:6px;
+}
+.btn{background:var(--accent);color:#fff;padding:10px 14px;border:none;border-radius:6px;cursor:pointer}
+.btn.secondary{background:#6b7280}
+
+/* New/Updated Styles for Dashboard */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.page-header h2 { margin: 0; }
+.page-header .welcome-text { color: var(--muted); }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.stat-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.stat-card h4 { margin: 0 0 8px 0; color: var(--muted); font-weight: 500; }
+.stat-card .stat-value { font-size: 28px; font-weight: 600; }
+.stat-card .stat-meta { font-size: 14px; color: var(--muted); }
+
+.punch-controls{display:flex;gap:10px;margin-bottom:16px}
+.att-table{width:100%;border-collapse:collapse;margin-top:10px}
+.att-table th, .att-table td{padding:12px 10px;border-bottom:1px solid #eee;text-align:left}
+.att-table th { font-size: 14px; color: var(--muted); font-weight: 500; }
+
+.alert{padding:10px;border-radius:6px;margin-bottom:10px}
+.alert.success{background:#e6fffa;color:#064e3b}
+.alert.error{background:#fff0f0;color:#7f1d1d}
+.errors{color:#b91c1c}
+.notice{background:#fffbe6;padding:8px;border-radius:6px}
+.site-footer{padding:12px 0;text-align:center;color:#888;margin-top:20px}
+
+/* Calendar Styles (12-Month) */
+.calendar-scroll {
+  overflow-x: auto;
+  padding: 10px 0;
+  white-space: nowrap;
+  border-top: 1px solid #eee;
+  margin-top: 16px;
+}
+
+#calendar-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.month-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.month-title {
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.day {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+.day.empty {
+  background: transparent;
+}
+
+/* Day Levels (GitHub Style) */
+.day.level-0 { background: #ebedf0; } /* GitHub Grey */
+.day.level-1 { background: #c6e48b; } /* Light Green */
+.day.level-2 { background: #7bc96f; } /* Medium Green */
+.day.level-3 { background: #239a3b; } /* Dark Green */
+.day.level-4 { background: #196127; } /* Darkest Green */
+
+.show-month-btn {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+}
+.show-month-btn:hover { text-decoration: underline; }
+
+/* --- Styles for 7-Day Weekly Calendar --- */
+.week-calendar-container {
+  padding: 16px 0 8px 0;
+  border-top: 1px solid #eee;
+  margin-top: 16px;
+}
+.week-calendar {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+.week-day-block {
+  flex-basis: 14%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.week-day-label {
+  font-size: 14px;
+  color: var(--muted);
+}
+/* Re-use the .day class but make it bigger */
+.week-day-block .day {
+  width: 32px; 
+  height: 32px;
+  border-radius: 6px;
+}

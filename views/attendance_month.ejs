@@ -1,0 +1,53 @@
+<% title = `Attendance - ${month}/${year}` %>
+
+<div class="page-header">
+  <h2>Attendance for <%= month %> / <%= year %></h2>
+  <a href="/" class="btn secondary" style="text-decoration: none;">Back to Dashboard</a>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <h4>Present Days</h4>
+    <div class="stat-value"><%= presentDays %></div>
+    <div class="stat-meta">This month</div>
+  </div>
+  <div class="stat-card">
+    <h4>Total Hours</h4>
+    <div class="stat-value"><%= totalHours.toLocaleString() %></div>
+    <div class="stat-meta">This month</div>
+  </div>
+  <div class="stat-card">
+    <h4>Attendance Rate</h4>
+    <div class="stat-value"><%= attendanceRate %>%</div>
+    <div class="stat-meta">This month</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3 style="margin-top: 0;">Monthly Details</h3>
+  <table class="att-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Punch In</th>
+        <th>Punch Out</th>
+        <th>Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (records.length === 0) { %>
+        <tr>
+          <td colspan="4" style="text-align: center; color: var(--muted);">No records found for this month.</td>
+        </tr>
+      <% } %>
+      <% records.forEach(r => { %>
+        <tr>
+          <td><%= formatDate(r.in_time) %></td>
+          <td><%= formatTime(r.in_time) %></td>
+          <td><%= r.out_time ? formatTime(r.out_time) : '-' %></td>
+          <td><b><%= formatDuration(r.duration_seconds) %></b></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

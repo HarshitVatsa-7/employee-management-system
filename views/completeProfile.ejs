@@ -1,0 +1,119 @@
+<% title = 'Employee Registration' %>
+
+<div class="card" style="max-width:700px;margin:24px auto;padding:18px;">
+  <h2>👤 Employee Registration</h2>
+  <p>Please complete your profile before accessing the attendance system.</p>
+
+  <% if (typeof flash !== 'undefined' && flash.error_msg) { %>
+    <div class="flash-error"><%= flash.error_msg %></div>
+  <% } %>
+
+  <form id="profileForm" action="/profile/complete" method="POST" enctype="multipart/form-data">
+
+    <label>Full Name
+      <input type="text" name="full_name" required value="<%= user.full_name || '' %>">
+    </label>
+
+    <label>Email (Auto-filled)
+      <input type="text" value="<%= user.email %>" disabled>
+    </label>
+
+    <label>Job ID
+      <input type="text" name="emp_id" placeholder="E.g., IT1234" required value="<%= user.emp_id || '' %>">
+    </label>
+
+    <label>Position / Role
+      <select name="position" required>
+        <option value="">Select</option>
+        <% const positions = ['Software Engineer','Frontend Developer','Backend Developer','Full Stack Developer','QA Engineer','HR Executive','Project Manager']; %>
+        <% positions.forEach(p => { %>
+          <option value="<%= p %>" <%= (user.position === p) ? 'selected' : '' %>><%= p %></option>
+        <% }) %>
+      </select>
+    </label>
+
+    <label>Type of Work
+      <select name="type_of_work">
+        <option value="">Select</option>
+        <% const types = ['Remote','On-site','Hybrid']; %>
+        <% types.forEach(t => { %>
+          <option value="<%= t %>" <%= (user.type_of_work === t) ? 'selected' : '' %>><%= t %></option>
+        <% }) %>
+      </select>
+    </label>
+
+    <label>Mobile Number
+      <input type="tel" name="mobile" required pattern="[0-9]{10}" placeholder="10-digit mobile number" value="<%= user.mobile || '' %>">
+    </label>
+
+    <label>Address
+      <textarea name="address" rows="3" required><%= user.address || '' %></textarea>
+    </label>
+
+    <label>Upload Profile Photo (JPG / JPEG / PDF, ≤ 1 MB)
+      <input id="profileInput" type="file" name="profile_image" accept=".jpg,.jpeg,.pdf">
+    </label>
+
+    <!-- preview -->
+    <div id="previewWrap" style="margin:8px 0;">
+      <% if (user.profile_image) { %>
+        <div>Current photo:</div>
+        <img src="<%= user.profile_image %>" alt="Profile" style="width:120px;height:120px;border-radius:8px;object-fit:cover;border:1px solid #ccc;">
+      <% } %>
+      <div id="newPreview" style="margin-top:8px;"></div>
+    </div>
+
+    <button id="saveBtn" class="btn" style="margin-top:10px;">Save & Continue</button>
+  </form>
+</div>
+
+<style>
+  .card input, .card select, .card textarea {
+    width:100%; padding:8px; margin:5px 0 10px; border:1px solid #ccc; border-radius:4px;
+  }
+  .card label { font-weight:600; display:block; margin-top:10px; }
+  button.btn { background:#4caf50; color:white; border:none; padding:10px 20px; cursor:pointer; border-radius:4px; }
+  .flash-error { color:#9f3a38; background:#ffe6e6; padding:8px; border-radius:4px; margin-bottom:8px; }
+</style>
+
+<script>
+  // client-side file validation (type + size <= 1MB)
+  const input = document.getElementById('profileInput');
+  const preview = document.getElementById('newPreview');
+
+  input.addEventListener('change', () => {
+    preview.innerHTML = '';
+    const file = input.files[0];
+    if (!file) return;
+
+    const allowed = ['image/jpeg','image/jpg','application/pdf'];
+    if (!allowed.includes(file.type)) {
+      alert('Only JPG/JPEG or PDF files are allowed.');
+      input.value = '';
+      return;
+    }
+
+    if (file.size > 1 * 1024 * 1024) {
+      alert('File too large. Maximum size is 1 MB.');
+      input.value = '';
+      return;
+    }
+
+    // Show preview for images (not for pdf)
+    if (file.type.startsWith('image/')) {
+      const img = document.createElement('img');
+      img.style.width = '120px';
+      img.style.height = '120px';
+      img.style.objectFit = 'cover';
+      img.style.border = '1px solid #ccc';
+      img.style.borderRadius = '8px';
+      preview.appendChild(img);
+
+      const reader = new FileReader();
+      reader.onload = e => img.src = e.target.result;
+      reader.readAsDataURL(file);
+    } else {
+      preview.textContent = 'PDF selected: ' + file.name;
+    }
+  });
+</script>

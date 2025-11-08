@@ -1,0 +1,36 @@
+<% title = "Full Attendance" %>
+
+<h2>Full Attendance Records</h2>
+
+<table class="att-table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Punch In</th>
+      <th>Punch Out</th>
+      <th>Duration</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% records.forEach(r => { %>
+      <tr>
+        <td><%= new Date(r.in_time).toLocaleDateString() %></td>
+        <td><%= new Date(r.in_time).toLocaleTimeString() %></td>
+        <td><%= r.out_time ? new Date(r.out_time).toLocaleTimeString() : '-' %></td>
+
+        <td>
+          <% if (r.duration) { %>
+            <% 
+              const h = Math.floor(r.duration / 3600);
+              const m = Math.floor((r.duration % 3600) / 60);
+            %>
+            <%= `${h}h ${m}m` %>
+          <% } else { %>
+            -
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

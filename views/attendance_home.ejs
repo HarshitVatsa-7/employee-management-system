@@ -1,0 +1,10 @@
+<%
+  function getMonthDays(year, month) {
+    const days = new Date(year, month+1, 0).getDate();
+    const firstDay = new Date(year, month, 1).getDay(); // 0=Sun .. 6=Sat
+    return { days, firstDay };
+  }
+
+  const year = new Date().getFullYear();
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+%>
